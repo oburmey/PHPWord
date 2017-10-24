@@ -231,11 +231,11 @@ class Html
     private static function parseText($node, $element, &$styles)
     {
         $styles['font'] = self::parseInlineStyle($node, $styles['font']);
-
+        $html = str_replace(array('<', '>', '&amp;'), array('&lt;', '&gt;'), $node->nodeValue);
         // Commented as source of bug #257. `method_exists` doesn't seems to work properly in this case.
         // @todo Find better error checking for this one
         // if (method_exists($element, 'addText')) {
-            $element->addText($node->nodeValue, $styles['font'], $styles['paragraph']);
+            $element->addText($html, $styles['font'], $styles['paragraph']);
         // }
 
         return null;
